@@ -8,8 +8,9 @@ SRCDIR   := src
 OBJDIR   := build
 OBJS     := \
     $(OBJDIR)/create_stack.o \
-		$(OBJDIR)/stack_pop.o \
-		$(OBJDIR)/stack_push.o \
+		$(OBJDIR)/stack_pop.o    \
+		$(OBJDIR)/stack_push.o   \
+		$(OBJDIR)/stack_utils.o  \
     $(OBJDIR)/main.o
 
 .PHONY: all clean
@@ -27,6 +28,9 @@ $(OBJDIR)/stack_pop.o: $(SRCDIR)/stack_pop.asm $(SRCDIR)/structs.inc | $(OBJDIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
 $(OBJDIR)/stack_push.o: $(SRCDIR)/stack_push.asm $(SRCDIR)/structs.inc | $(OBJDIR)
+	$(ASM) $(ASMFLAGS) $< -o $@
+
+$(OBJDIR)/stack_utils.o: $(SRCDIR)/stack_utils.asm $(SRCDIR)/structs.inc | $(OBJDIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
 # Compile C souorce codes

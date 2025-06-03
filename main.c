@@ -9,6 +9,7 @@ typedef struct Stack Stack;
 extern Stack *stack_create(void);
 extern int64_t stack_pop(Stack *stack);
 extern void stack_push(Stack *stack, int64_t value);
+extern void stack_destroy(Stack *stack);
 
 int main(int argc, char *argv[]) {
     // Create a new stack
@@ -30,6 +31,10 @@ int main(int argc, char *argv[]) {
         int64_t value = stack_pop(stack);
         printf("Popped %lld from the stack\n", (long long)value);
     }
+
+    // Destroy the stack
+    stack_destroy(stack);
+    printf("Stack destroyed successfully\n");
 
     return 0;
 }
