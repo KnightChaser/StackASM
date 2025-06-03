@@ -8,6 +8,7 @@ SRCDIR   := src
 OBJDIR   := build
 OBJS     := \
     $(OBJDIR)/create_stack.o \
+		$(OBJDIR)/stack_pop.o \
 		$(OBJDIR)/stack_push.o \
     $(OBJDIR)/main.o
 
@@ -20,6 +21,9 @@ $(OBJDIR):
 
 # Assemble create_stack.asm into build/
 $(OBJDIR)/create_stack.o: $(SRCDIR)/create_stack.asm $(SRCDIR)/structs.inc | $(OBJDIR)
+	$(ASM) $(ASMFLAGS) $< -o $@
+
+$(OBJDIR)/stack_pop.o: $(SRCDIR)/stack_pop.asm $(SRCDIR)/structs.inc | $(OBJDIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
 $(OBJDIR)/stack_push.o: $(SRCDIR)/stack_push.asm $(SRCDIR)/structs.inc | $(OBJDIR)
