@@ -8,6 +8,7 @@ SRCDIR   := src
 OBJDIR   := build
 OBJS     := \
     $(OBJDIR)/create_stack.o \
+		$(OBJDIR)/stack_push.o \
     $(OBJDIR)/main.o
 
 .PHONY: all clean
@@ -21,7 +22,10 @@ $(OBJDIR):
 $(OBJDIR)/create_stack.o: $(SRCDIR)/create_stack.asm $(SRCDIR)/structs.inc | $(OBJDIR)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
-# Compile main.c into build/
+$(OBJDIR)/stack_push.o: $(SRCDIR)/stack_push.asm $(SRCDIR)/structs.inc | $(OBJDIR)
+	$(ASM) $(ASMFLAGS) $< -o $@
+
+# Compile C souorce codes
 $(OBJDIR)/main.o: main.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
