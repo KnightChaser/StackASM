@@ -1,0 +1,7 @@
+# build outputs
+build/
+main.o
+stack
+
+# internal files for debugging
+.gdb_history
