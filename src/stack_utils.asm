@@ -144,7 +144,9 @@ stack_destroy:
     mov     rax, rcx               ; rax <- current node pointer
     mov     rcx, [rax + NODE_NEXT] ; load next node pointer
     mov     rdi, rax               ; rdi <- current node pointer (for free)
+    push    rcx                    ; push rcx (next node pointer) onto the stack (caller-saved)
     call    free
+    pop     rcx                    ; restore next node pointer from stack
     jmp     .destroy_loop
 
 .free_stack:
