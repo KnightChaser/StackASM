@@ -32,11 +32,18 @@ stack_push:
     je      .oom
     pop     rdx        ; Restore value from stack
 
-    ; set up the new node
+    ; set up the new node and link it in reverse so stack pop works easily and correctly.
+    ;
+    ; Example:
+    ; stack_push(10) => 10->NULL
+    ; stack_push(20) => 20->10->NULL
+    ; stack_push(30) => 30->20->10->NULL
+    ; stack_push(40) => 40->30->20->10->NULL
+
     mov     [rax + NODE_DATA], rdx   ; newNode->data = value (int64_t)
     mov     rcx, [rbx + STACK_TOP]   ; rcx <- s->top (Node *)
-    mov     [rax + NODE_NEXT], rcx   ; newNode->next = s->top
-    mov     [rbx + STACK_TOP], rax   ; s->top = newNode
+    mov     [rax + NODE_NEXT], rcx   ; newNode->next = s->top (Previous top node)
+    mov     [rbx + STACK_TOP], rax   ; s->top = newNode       (New top node)
     inc     qword [rbx + STACK_SIZE] ; s->size++
 
     pop     rbx       ; Restore rbx
